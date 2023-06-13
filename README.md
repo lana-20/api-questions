@@ -1,4 +1,6 @@
-# API Interview Questions
+# API Testing | Postman -  Interview Questions
+
+## API TESTING
 
 ### What is an API?
 
@@ -254,19 +256,276 @@ It is important to note that only trusted sites should be specified in the `Acce
 
 In summary, a cross-origin request is an HTTP request made by a web application on one domain to access resources from another domain. CORS is a mechanism that allows relaxation of the same-origin policy, enabling secure cross-origin requests and data transfers between browsers and servers. Proper configuration of cross-origin requests is crucial to ensure the security and integrity of web applications. 
 
+## POSTMAN
 
+### What experience do you have using Postman?
 
+As a software tester, you can use Postman for API testing in various ways to streamline your workflows, validate API performance, reliability, and behavior, and collaborate with your team. Here's how you can practically use Postman for API testing:
 
+1. **Create and store API requests**: Postman allows you to create, save, and manage simple and complex HTTP/s requests. You can store these requests and reuse them, reducing the need to remember exact endpoints, headers, and API keys [Source 7](https://www.blazemeter.com/blog/how-use-postman-manage-and-execute-your-apis).
 
+2. **Test any API with pre-configured code snippets**: Postman includes a JavaScript-based library of code snippets that enable you to easily author tests for various API architectures, including REST, GraphQL, SOAP, and gRPC [Source 6](https://www.postman.com/api-platform/api-testing/).
 
+3. **Validate complex, end-to-end workflows**: Use Postman's Collection Runner to chain requests together, execute them in specific sequences, and log test results. This helps you create test suites that validate sophisticated, business-critical user journeys [Source 6](https://www.postman.com/api-platform/api-testing/).
 
+4. **Automate test executions on Postman Cloud**: Schedule test executions to occur at specified times and frequencies, and receive notifications when tests fail. These executions run on Postman's infrastructure, so you don't have to worry about unavailable local resources [Source 6](https://www.postman.com/api-platform/api-testing/).
 
+5. **Execute API tests within CI/CD pipelines**: Use Newman or the Postman CLI to run collections and tests within your CI/CD pipeline, ensuring backwards compatibility by safeguarding the production environment from breaking changes [Source 6](https://www.postman.com/api-platform/api-testing/).
 
+6. **Monitor test results and troubleshoot bugs**: Debug test failures using the Postman Console, which allows you to inspect network calls, headers, requests, and responses. You can also monitor results from manual and automated runs and access reports to identify testing trends [Source 6](https://www.postman.com/api-platform/api-testing/).
 
+7. **Create a dedicated testing environment**: Postman enables you to store values in variables at the environment level, allowing you to run automated API tests in a dedicated testing environment before deploying code to production [Source 6](https://www.postman.com/api-platform/api-testing/).
 
+8. **Incorporate Postman API tests into incident response workflows**: Integrate Postman with third-party monitoring and incident response tools, such as Datadog, New Relic, and OpsGenie, to augment your incident response workflows with Postman test data [Source 6](https://www.postman.com/api-platform/api-testing/).
 
+9. **Collaborate with your team**: Postman's import and export capabilities make it easier to share files with other team members, enabling closer collaboration [Source 7](https://www.blazemeter.com/blog/how-use-postman-manage-and-execute-your-apis).
 
+10. **Organize test suites using Collections**: Postman's Collections feature allows you to group together multiple related APIs, helping you organize test suites [Source 7](https://www.blazemeter.com/blog/how-use-postman-manage-and-execute-your-apis).
 
+By following these steps and using Postman's features, you can effectively test APIs and collaborate with your team to ensure high-quality software. 
+
+### How you organize and manage Postman collections?
+
+Organizing and managing Postman collections can be done efficiently using a combination of workspaces, collections, and folders. Here's a step-by-step guide to help you organize your Postman collections effectively:
+
+1. **Workspaces**: Workspaces are shared contexts that allow team members to collaborate, set up different environments, and attach variables to these environments [Source 4](https://medium.com/prospa-engineering/neatly-organise-your-postman-collections-to-navigate-your-micro-services-maze-b3c6616dd157). Create a workspace for your micro-services solution with `development`, `staging`, and `production` environments attached to it.
+
+2. **Collections**: Each micro-service should have its own collection. This helps associate specific variables and scripts to each micro-service to handle their unique quirks and features [Source 4](https://medium.com/prospa-engineering/neatly-organise-your-postman-collections-to-navigate-your-micro-services-maze-b3c6616dd157). To create a collection, click the 'New Collection' icon in the Collections tab, give your collection a meaningful name, and select or create a collection [Source 6](https://toolsqa.com/postman/collections-in-postman/).
+
+3. **Folders**: Organize your API requests into folders within collections. This helps when a service has APIs that can be neatly grouped by their response or request format [Source 4](https://medium.com/prospa-engineering/neatly-organise-your-postman-collections-to-navigate-your-micro-services-maze-b3c6616dd157). You can also use folders to attach scripts with related input or output formats [Source 4](https://medium.com/prospa-engineering/neatly-organise-your-postman-collections-to-navigate-your-micro-services-maze-b3c6616dd157).
+
+4. **Pre-request scripts**: Use pre-request scripts to set up necessary data for API authorization or other tasks. You can configure different pre-request scripts for each collection [Source 4](https://medium.com/prospa-engineering/neatly-organise-your-postman-collections-to-navigate-your-micro-services-maze-b3c6616dd157).
+
+5. **Post-request scripts**: Use post-request scripts to run after the requests have been executed. This can help format the data returned by APIs in a searchable and sortable manner [Source 4](https://medium.com/prospa-engineering/neatly-organise-your-postman-collections-to-navigate-your-micro-services-maze-b3c6616dd157).
+
+6. **Share collections**: Share collections with team members using the 'Share Collection' option in Postman. This allows you to maintain a single source of truth for API development and makes it easier for team members to access and understand the API landscape [Source 6](https://toolsqa.com/postman/collections-in-postman/).
+
+7. **Import collections**: Import collections from a folder by uploading them to Postman. This can be useful when you want to consolidate multiple collections into one workspace [Source 6](https://toolsqa.com/postman/collections-in-postman/).
+
+By following these steps, you can create a well-organized Postman workspace that makes it easier to manage and navigate your API development process. 
+
+### Can you walk me through the process of testing an API using Postman?
+
+To test an API using Postman, follow these steps:
+
+1. **Install Postman**: Download and install Postman from [here](https://www.postman.com/downloads/). Postman is an API client that makes it easy for developers to create, share, test, and document APIs.
+
+2. **Launch Postman**: After installation, launch Postman and click on the "New" button to create a new request.
+
+3. **Enter the API request**: In the new request tab, you'll need to enter the following details:
+
+   - **HTTP Method**: Select the appropriate HTTP method (e.g., GET, POST, PUT, DELETE) from the dropdown menu.
+   - **Enter the URL**: Input the API endpoint URL.
+   - **Add headers**: If the API requires headers, such as authentication or content type, add them in the "Headers" tab.
+   - **Add parameters**: If the API requires query parameters, add them in the "Params" tab.
+   - **Add request body**: If the API requires a request body, such as for a POST or PUT request, add the data in the "Body" tab. You can choose the appropriate format (e.g., raw, JSON, XML) and enter the data accordingly.
+
+4. **Send the request**: Click on the "Send" button to send the API request. Postman will display the response, including the status code, headers, and response body.
+
+5. **Add tests**: To add tests to your API requests, switch to the "Tests" tab and write JavaScript assertions. These tests help you verify the API's behavior and response. For example, you can check if the response status code is as expected, or if a specific key in the response body contains a certain value.
+
+6. **Organize requests**: To organize your API requests, you can create collections. Click on the "Collections" tab, and then click the "+" button to create a new collection. You can add your API requests to this collection, making it easier to manage and share them with your team.
+
+7. **Automate testing**: Postman offers features like Collection Runner, which can help you automate your API tests. You can create test scripts that run your collection requests and generate reports based on the test results.
+
+Here's a detailed example using BlazeMeter's 'test create' API:
+
+1. Launch Postman and click on the "New" button to create a new request.
+2. Enter the HTTP method, URL, headers, parameters, and request body as described above.
+3. Send the request and review the response.
+4. Switch to the "Tests" tab and write JavaScript assertions to verify the API's behavior and response.
+5. Create a collection and add the request to it.
+6. Use Collection Runner to automate your API tests and generate reports.
+
+By following these steps, you can effectively test your APIs using Postman, ensuring their functionality, security, and exception handling [Source 6](https://www.blazemeter.com/blog/how-use-postman-manage-and-execute-your-apis). 
+
+### What are some common challenges you might encounter while working with APIs?
+
+Some common challenges you might encounter while working with APIs include:
+
+1. **Technological Complexity**: Integrating APIs requires a deep understanding of the technologies involved and staying up-to-date with the latest trends in API building. This can be challenging for developers who need to find highly skilled and knowledgeable colleagues to work on the integration [Source 3](https://api2cart.com/business/6-difficulties-api-integration-way-avoid/).
+
+2. **Security Risks**: API security is a major concern, as poor integration can expose your system to malicious users and data breaches. Ensuring proper security measures are in place and constantly updating them is crucial [Source 3](https://api2cart.com/business/6-difficulties-api-integration-way-avoid/).
+
+3. **High Time Consumption**: Developing a working integration module can take a significant amount of time, ranging from 4 to 12 weeks. This includes learning the logic and architecture of the platform, reducing bugs, and more [Source 3](https://api2cart.com/business/6-difficulties-api-integration-way-avoid/).
+
+4. **High Expensiveness**: Professional developers are in high demand and can be expensive. The cost of hiring a skilled developer for integration work can be several thousand dollars per month [Source 3](https://api2cart.com/business/6-difficulties-api-integration-way-avoid/).
+
+5. **Maintenance and Upgrading**: After establishing a connection, it's essential to have IT staff or at least one developer to handle integration maintenance and upgrading. Failing to do so can cause issues with data access and manipulation [Source 3](https://api2cart.com/business/6-difficulties-api-integration-way-avoid/).
+
+6. **System's Diversity**: Each system has its unique logic, and integrating with multiple platforms can be time-consuming and require a broad range of expertise [Source 3](https://api2cart.com/business/6-difficulties-api-integration-way-avoid/).
+
+7. **Obscure Error Messages and Poor Documentation**: Inadequate documentation and unclear error messages can make it difficult to identify and resolve issues when integrating APIs [Source 6](https://dzone.com/articles/what-are-the-most-common-issues-affecting-integrat).
+
+8. **API Documentation Challenges**: When API documentation is lacking or inaccurate, developers may struggle to understand how to properly interact with the API and verify its integration functions [Source 7](https://binmile.com/blog/challenges-of-working-with-apis-from-developers-perspective/).
+
+To overcome these challenges, consider investing in skilled developers, staying up-to-date with the latest API technologies, and following best practices for API security and documentation. Additionally, using tools like Postman or SOAP UI can help developers interact with and understand APIs more effectively [Source 7](https://binmile.com/blog/challenges-of-working-with-apis-from-developers-perspective/). 
+
+### What are some common challenges you might encounter while testing APIs in Postman?
+
+There are several common challenges you might encounter while testing APIs in Postman. Some of these challenges include:
+
+1. Handling two-factor authentication (2FA) [Source 2](https://blog.testproject.io/2020/02/11/overcoming-api-testing-challenges-using-postman-one-time-password/):
+
+   - When testing APIs that require 2FA, such as GitHub API, you might encounter issues related to generating one-time passwords (OTP) from authenticator apps installed on your mobile phone.
+   - To overcome this challenge, you can use Postman to automate the process of generating OTPs and adding them as headers in your API requests.
+
+2. Managing API complexity [Source 3](https://www.testingxperts.com/blog/Top-4-Challenges-of-API-Testing-and-How-to-Overcome-Them):
+
+   - APIs can pull data from multiple APIs and back-end systems, creating a complex architecture.
+   - Emulating inaccessible resources is essential to avoid testing bottlenecks.
+   - Ensuring API testing is managed in both separate and nuclear units of work can help overcome this challenge.
+
+3. Versioning and deprecated values [Source 3](https://www.testingxperts.com/blog/Top-4-Challenges-of-API-Testing-and-How-to-Overcome-Them):
+
+   - APIs often have different versions, with some versions being called by others and some not.
+   - Managing versioning and handling deprecated values can be a challenge when testing APIs.
+
+4. Automation testing and environment management [Source 4](https://blog.postman.com/continuous-api-testing-with-postman/):
+
+   - Automating API tests and managing different environments can be a challenge when using Postman.
+   - Postman offers features like Collections Runner, Newman, and Postman Cloud to help overcome these challenges.
+
+5. Debugging and continuous integration [Source 6](https://www.guru99.com/postman-tutorial.html):
+
+   - Debugging API tests and integrating Postman with continuous integration tools can be a challenge.
+   - Postman's console, collaboration features, and support for continuous integration help address these challenges.
+
+6. Managing test suites and organizing API tests [Source 6](https://www.guru99.com/postman-tutorial.html):
+
+   - Organizing and managing API tests in Postman can be challenging due to the complexity of APIs and the number of required tests.
+   - Postman allows users to create collections, import/export environments, and parameterize tests to help manage test suites and organize API tests.
+
+In summary, while testing APIs in Postman, you may encounter challenges related to handling 2FA, managing API complexity, versioning, automation testing, debugging, and organizing test suites. Postman offers various features and tools to help overcome these challenges and streamline the testing process. 
+
+### Can you explain the differences between GET, POST, PUT, and DELETE HTTP methods?
+
+In Postman, you can use different HTTP methods such as GET, POST, PUT, PATCH, and DELETE to interact with APIs. Each method has its own purpose and characteristics:
+
+- **GET**: This method is used to request data from a specified resource. It is one of the most common HTTP methods and does not modify the resource on the server. [Source 3](https://scrolltest.medium.com/how-to-work-with-get-post-put-patch-delete-in-postman-in-10-min-a8cc24311426)
+
+- **POST**: This method is used to send data to a server to create or update a resource. The data sent to the server with POST is stored in the request body of the HTTP request. Unlike PUT, POST requests are not idempotent, meaning that calling a POST request multiple times may have side effects, such as creating the same resource multiple times. [Source 0](https://dev.to/promode/how-to-work-with-get-post-put-patch-delete-in-postman-in-10-min-41n6)
+
+- **PUT**: This method is similar to POST, but it is used to send data to a server to create or update a resource. The main difference between POST and PUT is that PUT requests are idempotent. Calling the same PUT request multiple times will always produce the same result. [Source 0](https://dev.to/promode/how-to-work-with-get-post-put-patch-delete-in-postman-in-10-min-41n6)
+
+- **PATCH**: This method is used to partially update an existing resource. The request body contains the specific changes to be applied to the resource, and the API service will create a new version according to those instructions. This is different from PUT, which replaces the entire resource with the new version. [Source 8](https://medium.com/@9cv9official/what-are-get-post-put-patch-delete-a-walkthrough-with-javascripts-fetch-api-17be31755d28)
+
+- **DELETE**: This method is used to delete a resource specified by its URI. It sends a request to the server to delete the mentioned resource in the endpoint. [Source 5](https://www.tutorialspoint.com/how-to-create-a-delete-request-in-postman)
+
+In summary, each HTTP method has its own purpose and characteristics:
+
+- GET: Retrieve data from a specified resource
+- POST: Create or update a resource with data in the request body
+- PUT: Create or update a resource with data in the request body (idempotent)
+- PATCH: Partially update an existing resource with specific changes
+- DELETE: Delete a resource specified by its URI 
+
+### Have you worked with authentication and authorization using Postman? If so, can you explain how you have implemented this in your testing?
+
+To implement authorization and authentication in API testing using Postman, you can follow these steps:
+
+1. **Select the appropriate authorization method**: Depending on the API, you might need to use different authorization methods like Basic Auth, API Keys, or OAuth 2.0. In Postman, go to the Authorization tab of the request and choose the appropriate method from the Type dropdown. [Source 6](https://blog.testproject.io/2020/07/15/understanding-api-authorization-options-in-postman/)
+
+2. **Configure the authorization details**: For Basic Auth, provide a username and password. For API Keys, paste the API key into the Token field. For OAuth 2.0, fill in the required details, such as grant type, client ID, client secret, and callback URL. [Source 6](https://blog.testproject.io/2020/07/15/understanding-api-authorization-options-in-postman/), [Source 10](https://www.thirdrocktechkno.com/blog/how-to-write-authentication-test-cases-with-postman/)
+
+3. **Request the access token**: For OAuth 2.0, click on the "Request Token" button to generate the access token. Postman will open a browser window for you to authorize the request. Once the token is generated, it will be shown in the Access token field. [Source 10](https://www.thirdrocktechkno.com/blog/how-to-write-authentication-test-cases-with-postman/)
+
+4. **Use the access token**: After obtaining the access token, you can use it in your requests to access protected resources. To do this, go to the Headers tab in Postman and add the access token to the Authorization header with the appropriate format (e.g., `Bearer <access_token>` for OAuth 2.0). [Source 6](https://blog.testproject.io/2020/07/15/understanding-api-authorization-options-in-postman/)
+
+5. **Write tests**: You can write tests for your authorized API requests using the JavaScript language in Postman. This allows you to verify the response, status code, and other aspects of your API requests. [Source 2](https://medium.com/aubergine-solutions/api-testing-using-postman-323670c89f6d)
+
+Here's an example of how to set up OAuth 2.0 authorization in Postman:
+
+1. Select "OAuth 2.0" from the Type dropdown in the Authorization tab.
+2. Fill in the required details, such as grant type, client ID, client secret, and callback URL.
+3. Click on the "Get New Access Token" button, provide the required details, and click on the "Request Token" button.
+4. Authorize the request and receive the access token.
+5. Click on "Use Token" and select "Postman Token" from the dropdown.
+6. Send the API request and verify the response. [Source 8](https://www.softwaretestingmaterial.com/testing-oauth2-authorization-in-postman/)
+
+Remember that the specific steps and configurations might vary depending on the API you're working with. Always refer to the API documentation for detailed instructions on how to set up authorization and authentication. 
+
+### How do you handle error responses in Postman and what steps do you take to troubleshoot issues?
+
+Handling error responses in Postman and troubleshooting issues involves several steps. Here are some of the ways to handle error responses and troubleshoot issues in Postman:
+
+1. **Using Postman Console**: When you encounter an exception, you can view the error details in the Postman Console. To access the console, go to View > Postman Console. After sending the request, you can see the error details in the console. Click on the drop-down and select RAW to view the raw error response ([Source 3](https://github.com/postmanlabs/postman-app-support/issues/4068)).
+
+2. **Catching exception and reading response stream**: In some cases, you may need to catch exceptions and read the response stream of the exception. This can be done using the following code snippet ([Source 0](https://stackoverflow.com/questions/46650944/catch-external-api-error-message-as-in-postman-body)):
+
+```csharp
+WebRequest request = WebRequest.Create("http://...");
+WebResponse response = null;
+try
+{
+    response = request.GetResponse();
+}
+catch (WebException webEx)
+{
+    if (webEx.Response != null)
+    {
+        using (var errorResponse = (HttpWebResponse)webEx.Response)
+        {
+            using (var reader = new StreamReader(errorResponse.GetResponseStream()))
+            {
+                string error = reader.ReadToEnd();
+                // TODO: use JSON.net to parse this string
+            }
+        }
+    }
+}
+```
+
+3. **Understanding HTTP Status Codes**: Familiarize yourself with various HTTP status codes and their meanings to better understand error responses. For example, a 400 Bad Request error indicates that the server cannot process the request due to a malformed syntax. A 500 Internal Server Error indicates that an unexpected condition was encountered, and no more specific message is suitable ([Source 1](https://docs.oracle.com/en/cloud/iaas-classic/messaging-cloud/csmes/rest-api-http-status-codes-and-error-messages-reference.html)).
+
+4. **Troubleshooting requests**: Follow the guidelines provided by Postman for troubleshooting API requests. Some common issues include environment variables, setting global variables, and using delays with Newman. Refer to [Source 11](https://www.softwaretestingmaterial.com/how-to-fix-common-errors-in-postman/) for examples and solutions to common errors in Postman.
+
+5. **Receiving responses**: Postman provides a user-friendly interface to view multiple pieces of information from all of the responses. You can use options like Copy Response to copy the complete response to the clipboard, which is useful for sharing the response with others ([Source 8](https://www.javatpoint.com/response-in-postman)).
+
+Remember that error handling and troubleshooting may vary depending on the specific API and the programming language being used. Always refer to the API documentation and use the appropriate error handling techniques for your language. 
+
+### How do you set environment variables in Postman and how do you use them in your requests?
+
+To set environment variables in Postman and use them in your requests, follow these steps:
+
+**Step 1: Create an Environment in Postman**
+
+1. In Postman, go to the "Collections" tab and create a new collection.
+2. Click on the three dots in the upper-right corner of the collection, and select "Edit".
+3. In the "Edit Collection" modal, click on the "Manage Environments" button.
+4. Enter the environment name, then add a variable name and value. For example, `URL` as the variable name and `https://jsonplaceholder.typicode.com/users` as the value.
+5. Close the "Manage Environments" modal. The new environment should now be visible in the "No Environment" dropdown [Source 2](https://www.tutorialspoint.com/postman/postman_environment_variables.htm).
+
+**Step 2: Use Environment Variables in Requests**
+
+1. In the request editor, select the environment you created from the dropdown menu.
+2. Replace the URL or any other parameter with the environment variable using double curly braces `{{<Environment variable name>}}`. For example, `{{URL}}` [Source 1](https://www.toolsqa.com/postman/environment-variables-in-postman/).
+3. Click "Send" to execute the request using the environment variable.
+
+**Step 3: Use Environment Variables in Request Body**
+
+To use environment variables in the request body, include them in the JSON object as shown below:
+
+```json
+{
+  "string": "{{name}}",
+  "number": {{port}}
+}
+```
+
+[Source 3](https://stackoverflow.com/questions/50240735/postman-how-to-use-environment-variables-in-request-body)
+
+**Step 4: Importing Postman Variables to Dotcom-Monitor**
+
+If you're using Dotcom-Monitor for load testing, you can import the environment variables from Postman to Dotcom-Monitor by following these steps:
+
+1. Export the list of variables from Postman to a JSON file.
+2. In Dotcom-Monitor, go to the corresponding Postman Collection task edit page.
+3. On the Task Configuration sidebar, click the actions menu button and select "Manage Context Parameters".
+4. In the "Manage Context Parameters", click "Import" and provide the JSON file with the list of variables exported from Postman.
+5. Click "Done" [Source 5](https://www.dotcom-monitor.com/wiki/knowledge-base/how-to-work-with-postman-environment-variables-in-dotcom-monitor/).
+
+**Note**: Environment variables in Postman are only available for folders, collections, and workspaces. You need to save a request to use them [Source 8](https://medium.com/weekly-webtips/how-to-use-environment-variable-in-postman-ba7c0f49f22e). 
 
 
 
