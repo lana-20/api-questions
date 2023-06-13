@@ -527,6 +527,346 @@ If you're using Dotcom-Monitor for load testing, you can import the environment 
 
 **Note**: Environment variables in Postman are only available for folders, collections, and workspaces. You need to save a request to use them [Source 8](https://medium.com/weekly-webtips/how-to-use-environment-variable-in-postman-ba7c0f49f22e). 
 
+### How would you automate the execution of a Postman collection, and what tools or methods would you use to accomplish it?
+
+To automate the execution of a Postman collection, you can use the Postman Collection Runner or external tools like Newman. I'll discuss both methods and provide examples.
+
+### Postman Collection Runner
+
+Postman Collection Runner is a built-in tool that allows you to execute your collection sequentially with a single click. To use the Collection Runner, follow these steps:
+
+1. Click on the "Runner" button at the top of the Postman page, next to the "Import" button.
+2. The Collection Runner page should appear. Set up the following:
+   - Collection: Select the collection you want to run.
+   - Environment: Select the environment associated with the collection.
+   - Data file: (Optional) If you want to use a data file (CSV or JSON) for input, select the file.
+3. Click the "Run" button to start executing the collection.
+
+You can view the test status and results per iteration in the "Run Results" page [Source 4](https://aps.autodesk.com/blog/automation-test-automate-workflow-postman-collection-runner).
+
+### Newman
+
+Newman is an external command-line tool that allows you to run Postman collections and manage environments. To use Newman, you need to install it first. Once installed, you can run the following command:
+
+```
+newman run <collection_name>.json -e <environment_name>
+```
+
+This command will execute the specified collection using the specified environment [Source 9](https://medium.com/@mior/automation-with-postman-collection-runner-630c04b8064f).
+
+### Example: Selecting specific requests in a collection
+
+You can also use the `postman.setNextRequest()` function to select specific requests in a collection. For example, you can create a script that executes a request and then sets the next request based on the response:
+
+```javascript
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+var responseBody = JSON.parse(responseBody);
+
+if (responseBody.length === 0 || responseBody[0].name === "reject" || responseBody[0].name === "acceptedToSubmit") {
+    postman.setNextRequest('Step 7: Find change order types');
+} else {
+    postman.setEnvironmentVariable("action_name", responseBody[0].name);
+}
+```
+
+This script checks if the response has a status code of 200, and if not, it sets the next request to "Step 7: Find change order types" [Source 4](https://aps.autodesk.com/blog/automation-test-automate-workflow-postman-collection-runner).
+
+### Pros and Cons
+
+**Postman Collection Runner:**
+
+- Pros:
+  - Built-in tool, no need for external installations.
+  - Easy to set up and use.
+  - Supports data files (CSV or JSON) for input.
+
+- Cons:
+  - Limited to Postman's built-in functionality.
+
+**Newman:**
+
+- Pros:
+  - Command-line tool, providing more control and flexibility.
+  - Can be used in continuous integration pipelines.
+
+- Cons:
+  - Requires installation and setup.
+
+In summary, both Postman Collection Runner and Newman can be used to automate the execution of a Postman collection. The Collection Runner is a built-in tool that is easy to use, while Newman is a command-line tool that provides more control and flexibility. Choose the method that best fits your needs and workflow. 
+
+### Write a script that generates a random email address and uses it in a Postman request to create a new user in your system.
+
+To generate a random email address and use it in a Postman request to create a new user, you can follow these steps:
+
+1. Generate a random email address using a pre-request script.
+
+```javascript
+const uuid = require('uuid');
+let email = uuid() + '@domain.com';
+pm.environment.set('email', email);
+```
+
+This script uses the `uuid` library to generate a unique email address with a random domain. You can also use other libraries like `moment` or `_.random` for generating random email addresses, as shown in [Source 7](https://sqa.stackexchange.com/questions/36809/how-to-randomly-generate-email-address-on-postman-request-using-pre-request-scri).
+
+2. Set the generated email address as an environment variable in Postman.
+
+```javascript
+pm.environment.set('email', email);
+```
+
+3. Use the environment variable in the request body to create a new user with the generated email address.
+
+```
+{
+    "email": "{{email}}",
+    "firstName": "{{FirstName}}",
+    "lastName": "{{LastName}}"
+}
+```
+
+Here, `{{FirstName}}` and `{{LastName}}` are dynamic variables provided by Postman to generate random first and last names, as shown in [Source 2](https://mattruma.com/adventures-with-postman-dynamic-variables/).
+
+4. Send the POST request with the generated email address and other user information.
+
+```
+POST https://your-api-url.com/users
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "firstName": "{{FirstName}}",
+    "lastName": "{{LastName}}"
+}
+```
+
+This approach uses a pre-request script to generate a random email address and sets it as an environment variable in Postman. The email address is then used in the request body to create a new user. This method provides a secure and efficient way to generate random email addresses for testing purposes. 
+
+### Walk me through the steps you would take to test the login functionality of an API using Postman.
+
+To test the login functionality of an API using Postman, you can follow these steps:
+
+1. **Create a new request in Postman**: Open Postman and click on the "+" button to create a new request tab. Select the HTTP method (usually POST) for the login API endpoint [Source 4](https://developers.mural.co/public/docs/testing-with-postman).
+
+2. **Enter the API endpoint URL**: In the request URL field, enter the full URL of the login API endpoint provided by the API documentation [Source 2](https://www.quora.com/How-can-I-test-login-rest-API-service-using-postman).
+
+3. **Add headers**: If the API requires specific headers (e.g., content type or authorization), add them to the request. For example, you might need to include an "Authorization" header with a bearer token [Source 4](https://developers.mural.co/public/docs/testing-with-postman).
+
+4. **Add request body**: If the login API requires a request body (e.g., username and password), switch to the "Body" tab in Postman and select the appropriate format (e.g., x-www-form-urlencoded or JSON). Fill in the required fields with the appropriate values [Source 7](https://www.dataworks.ie/api-testing-with-postman-everything-you-need-to-know/).
+
+5. **Send the request**: Click the "Send" button to send the login request to the API. Postman will display the response, including the status code and any returned data [Source 6](https://www.guru99.com/postman-tutorial.html).
+
+6. **Verify the response**: Check the status code and any returned data to ensure that the login functionality is working as expected. If the API returns an error, you might need to adjust your request or consult the API documentation for more information [Source 6](https://www.guru99.com/postman-tutorial.html).
+
+7. **Create tests**: To further verify the login functionality, you can create tests in Postman using the "Tests" tab. For example, you can check if the response status code is 200 and if specific data is present in the response body [Source 5](https://www.guru99.com/postman-tutorial.html).
+
+```javascript
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response body contains specific data", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.someKey).to.eql("someValue");
+});
+```
+
+8. **Run tests**: Click the "Send" button again to run the tests in Postman. The test results will be displayed, indicating whether the tests passed or failed [Source 5](https://www.guru99.com/postman-tutorial.html).
+
+By following these steps, you can effectively test the login functionality of an API using Postman. Remember to consult the API documentation for specific details on the login API and any required parameters or headers. 
+
+### How do you handle authentication tokens in Postman, and what methods do you use to verify that a user is logged in?
+
+To handle authentication tokens in Postman, you can use pre-request scripts to fetch and attach bearer tokens to make testing your REST APIs easier. This can be done for different environments by storing a set of variables and switching the context of your requests [Source 1](https://www.pluralsight.com/guides/set-up-postman-and-automatically-add-bearer-tokens).
+
+To get an access token in Postman, you can follow these steps:
+
+1. Navigate to the Postman Authorization tab of your request.
+2. From the Type dropdown menu, select OAuth 2.0.
+3. Click on the Get New Access Token button that will open a dialog box for configuring the identity server (e.g., Keycloak). Fill in the appropriate fields with the corresponding values for your environment [Source 6](https://sis-cc.gitlab.io/dotstatsuite-documentation/configurations/authentication/token-in-postman/).
+
+After obtaining the access token, you can use it to authenticate and make requests on protected APIs. For example, you can add the token as an Authorization header in the request:
+
+```
+Authorization: Bearer {access_token}
+```
+
+To verify that a user is logged in, you can check the response of the protected API for a specific status code (e.g., 200 OK) or a specific response header (e.g., `X-Auth-Token` or `X-User-Id`) that indicates the user is authenticated [Source 9](https://dev.trackunit.com/docs/verify-access-using-postman).
+
+In case the access token expires, you can use a refresh token to obtain a new access token. Here's an example refresh request:
+
+```
+POST https://secure.na1.adobesign.com:443/oauth/v2/refresh
+    "Content-Type", "application/x-www-form-urlencoded"
+    Request body should contain the following parameters:
+    "grant_type": refresh_token
+    "client_id": <<Adobe Sign Application ID, step (05)>>
+    "client_secret": <<Adobe Sign Application Secret, step (05)>>
+    "refresh_token": <<Take refresh token from Postman, 'Manage Access Tokens' dialog.
+```
+
+The response should include a new access token and its expiration time [Source 8](https://helpx.adobe.com/sign/kb/how-to-create-access-token-using-postman-adobe-sign.html).
+
+In summary, handling authentication tokens in Postman involves obtaining an access token, using it to authenticate requests, and refreshing the token when necessary. 
+
+### Given a login endpoint that returns a JWT token, write a script that extracts the token from the response and uses it to authenticate subsequent requests.
+
+To extract the JWT token from the response and use it for subsequent requests, you can follow the steps below:
+
+1. Send a login request to the authentication server, providing the necessary credentials (username and password). The server should return a JWT token upon successful authentication.
+
+```javascript
+async function handleSubmit() {
+  // Send the login request
+  const response = await fetch('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ username, password }),
+  });
+
+  // Extract the JWT token from the response
+  const { jwt_token } = await response.json();
+
+  // Use the JWT token for subsequent requests
+}
+```
+[Source 4](https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/)
+
+2. Store the JWT token securely, avoiding local storage as it is prone to XSS attacks. You can use an HttpOnly cookie, or store it in memory or a secure storage like IndexedDB.
+
+```javascript
+import { login } from '../utils/auth';
+await login({ jwt_token });
+```
+[Source 4](https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/)
+
+3. Attach the JWT token to the `Authorization` header of subsequent requests, using the `Bearer` schema.
+
+```javascript
+const jwt_token = getJwtToken(); // Implement a function to retrieve the JWT token from storage
+const response = await fetch('/api/protected', {
+  headers: {
+    'Authorization': `Bearer ${jwt_token}`,
+  },
+});
+```
+[Source 3](https://jwt.io/introduction)
+
+4. On the server-side, implement a middleware or authentication check to verify the JWT token. If the token is valid, the request will be allowed to access protected resources.
+
+```php
+public function render($request, Exception $e)
+{
+  if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException)
+  {
+    return response(['Token is invalid'], 401);
+  }
+  if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException)
+  {
+    return response(['Token has expired'], 401);
+  }
+  return parent::render($request, $e);
+}
+```
+[Source 6](https://www.toptal.com/web/cookie-free-authentication-with-json-web-tokens-an-example-in-laravel-and-angularjs)
+
+5. Optionally, implement a silent refresh mechanism to automatically refresh the JWT token when it expires. This can be done using a package like `apollo-link-token-refresh`.
+
+```javascript
+import { TokenRefreshLink } from 'apollo-link-token-refresh';
+import { JwtPayload } from 'jwt-decode';
+import { getJwtToken, getRefreshToken, setJwtToken } from './auth';
+import decodeJWT from 'jwt-decode';
+
+export function makeTokenRefreshLink() {
+  return new TokenRefreshLink({
+    isTokenValidOrUndefined: () => {
+      const token = getJwtToken();
+      if (!token) return true;
+      const claims: JwtPayload = decodeJWT(token);
+      const expirationTimeInSeconds = claims.exp * 1000;
+      const now = new Date();
+      const isValid = expirationTimeInSeconds >= now.getTime();
+      return isValid;
+    },
+    fetchAccessToken: async () => {
+      // Implement the logic to fetch a new access token
+    },
+    handleFetch: (accessToken) => {
+      setJwtToken(accessToken);
+    },
+    handleResponse: (operation, accessTokenField) => (response) => {
+      return { access_token: response.refreshToken.jwt };
+    },
+    handleError: (err) => {
+      console.warn('Your refresh token is invalid. Try to reauthenticate.');
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('refreshToken');
+    },
+  });
+}
+```
+[Source 4](https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/)
+
+By following these steps, you can extract the JWT token from the login response and use it for subsequent requests, while ensuring secure storage and verification on the server-side. 
+
+### How would you test the functionality of generating and validating JWT tokens for guest users in Postman, and what methods or tools would you use to simulate a guest user scenario?
+
+To test the functionality of generating and validating JWT tokens for guest users in Postman, you can follow these steps:
+
+1. **Create a guest user registration endpoint**: Implement an endpoint that allows creating a guest user with minimal information, such as an email address. In the response, include the JWT token for the guest user. Here's an example of how to create a guest user and generate a JWT token in Node.js using the `jsonwebtoken` library [Source 8]:
+
+```javascript
+app.post("/register-guest", async (req, res) => {
+  const { email } = req.body;
+  // Validate user input and save the guest user to the database
+  // ...
+
+  // Create token
+  const token = jwt.sign(
+    { email },
+    process.env.TOKEN_KEY,
+    { expiresIn: "1h" }
+  );
+
+  res.status(200).json({ token });
+});
+```
+
+2. **Send a request to the guest user registration endpoint in Postman**: Send a POST request to the `/register-guest` endpoint with the email address of the guest user. In the response, extract the JWT token [Source 9].
+
+3. **Test the JWT token in protected endpoints**: To test the guest user's JWT token in protected endpoints, you can use the "Bearer" token type in the "Authorization" header of your requests in Postman. The format should be `Authorization: Bearer <TOKEN>` [Source 2].
+
+4. **Simulate a guest user scenario**: To simulate a guest user scenario, you can use Postman's built-in tools or scripts. One way to do this is to use Pre-request Scripts in Postman. Pre-request scripts are snippets of code that are executed before the request is sent, and they can be used to refresh the JWT token before sending the request [Source 5]. Here's an example of how to use a pre-request script to refresh the JWT token:
+
+```javascript
+pm.environment.set("token", "Bearer " + pm.response.json().token);
+pm.sendRequest("https://your-api-url/protected-endpoint", (error, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(response);
+  }
+});
+```
+
+This script sets the JWT token in the environment variable `token` and sends a request to the protected endpoint. The `pm.sendRequest` function sends the request, and the JWT token is automatically included in the "Authorization" header [Source 5].
+
+By following these steps, you can test the functionality of generating and validating JWT tokens for guest users in Postman and simulate a guest user scenario. 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
