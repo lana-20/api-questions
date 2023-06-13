@@ -855,75 +855,181 @@ This script sets the JWT token in the environment variable `token` and sends a r
 
 By following these steps, you can test the functionality of generating and validating JWT tokens for guest users in Postman and simulate a guest user scenario. 
 
+## CHALLENGE SCENARIO
 
+### You have been tasked with testing the E2E functionality of a mobile app for a restaurant, which includes the ability for logged-in users to view and place orders from the restaurant's menu. Your task is to write a collection of Postman requests that test the following user flows:
 
+Login: Write a request that authenticates a user with a valid username and password and returns an access token for the user session. Verify that the token is valid and can be used in subsequent requests.
 
+Get Menu Items: Write a request that retrieves the list of menu items available for the restaurant. Verify that the response includes all necessary information for each item, such as name, description, price, and availability.
 
+Add Item to Cart: Write a request that adds a selected menu item to the user's cart, including any special instructions or customizations. Verify that the item is added correctly and that the user's cart is updated with the correct total.
 
+View Cart: Write a request that retrieves the user's current cart, including all items and their quantities, as well as the current subtotal, tax, and total. Verify that the cart contents and pricing are correct.
 
+Place Order: Write a request that submits the user's cart as an order for the restaurant. Verify that the order is placed correctly and that the user receives a confirmation of the order, including an estimated delivery or pickup time.
 
+To test the E2E functionality of the mobile app, you can create a collection of Postman requests that cover each user flow. Below are examples of how to create the requests for each flow:
 
+1. **Login**
 
+Create a POST request to the authentication endpoint with the valid username and password:
 
+```
+POST https://example.com/api/auth/login
+Headers:
+Content-Type: application/json
+Authorization: Bearer {your_access_token}
 
+Body:
+{
+  "username": "valid_username",
+  "password": "valid_password"
+}
+```
 
+Verify the response contains the access token and the status code is 200 (OK).
 
+2. **Get Menu Items**
 
+Create a GET request to the menu items endpoint:
 
+```
+GET https://example.com/api/menu
+Headers:
+Authorization: Bearer {your_access_token}
+```
 
+Verify the response includes all necessary information for each menu item, such as name, description, price, and availability.
 
+3. **Add Item to Cart**
 
+Create a POST request to the add to cart endpoint with the selected menu item and any special instructions or customizations:
 
+```
+POST https://example.com/api/cart/add
+Headers:
+Content-Type: application/json
+Authorization: Bearer {your_access_token}
 
+Body:
+{
+  "itemId": "menu_item_id",
+  "quantity": 1,
+  "customizations": {
+    "instructions": "Add extra cheese"
+  }
+}
+```
 
+Verify the response contains the updated cart and the status code is 200 (OK).
 
+4. **View Cart**
 
+Create a GET request to the view cart endpoint:
 
+```
+GET https://example.com/api/cart
+Headers:
+Authorization: Bearer {your_access_token}
+```
 
+Verify the response includes all items, their quantities, the current subtotal, tax, and total.
 
+5. **Place Order**
 
+Create a POST request to the place order endpoint with the user's cart:
 
+```
+POST https://example.com/api/orders
+Headers:
+Content-Type: application/json
+Authorization: Bearer {your_access_token}
 
+Body:
+{
+  "cartId": "cart_id"
+}
+```
 
+Verify the response contains the placed order information, the estimated delivery or pickup time, and the status code is 200 (OK).
 
+To execute these requests and verify the responses, you can use Postman's Collection Runner feature, which allows you to automate the testing process and save time and resources [Source 2](https://www.blazemeter.com/blog/how-use-postman-manage-and-execute-your-apis). 
 
+## ADDITIONAL CHALLENGES
 
+### Test negative scenarios, such as attempting to place an order without being logged in or adding an item to the cart that is out of stock.
 
+Use Postman's collection runner to run the E2E tests against a test environment or staging server, and generate a report of the results.
 
+Add performance tests to the collection, such as testing the response time of each request and the overall end-to-end response time for a full order.
 
+Incorporate automated validations into the collection, such as checking the format of the response data, verifying that the expected data is present, and checking for common errors or exceptions.
 
+Write scripts that generate randomized user data, such as selecting random menu items or adding random customizations to items, to simulate more realistic testing scenarios.
 
 
+To test negative scenarios and incorporate additional requirements, follow these steps:
 
+1. **Negative Scenario - Place Order without being logged in**
 
+Create a POST request to the place order endpoint without providing an access token:
 
+```
+POST https://example.com/api/orders
+Headers:
+Content-Type: application/json
 
+Body:
+{
+  "cartId": "cart_id"
+}
+```
 
+Verify the response contains an error message indicating that the user is not logged in and the status code is 401 (Unauthorized).
 
+2. **Negative Scenario - Add out of stock item to Cart**
 
+Create a POST request to the add to cart endpoint with an out of stock item:
 
+```
+POST https://example.com/api/cart/add
+Headers:
+Content-Type: application/json
+Authorization: Bearer {your_access_token}
 
+Body:
+{
+  "itemId": "out_of_stock_item_id",
+  "quantity": 1,
+  "customizations": {
+    "instructions": "Add extra cheese"
+  }
+}
+```
 
+Verify the response contains an error message indicating that the item is out of stock and the status code is 400 (Bad Request).
 
+To run E2E tests against a test environment or staging server and generate a report, use Postman's Collection Runner or Newman [Source 1](https://www.postman.com/automated-testing/).
 
+To add performance tests, create custom scripts for each request that measure the response time and overall end-to-end response time for a full order. Use the `pm.response.timing()` function in the Pre-request Script tab of each request to collect timing data. After running the collection, analyze the results in the Collection Runner's Results page.
 
+To incorporate automated validations, use the Test tab in each request to add test scripts. Include checks for the format of the response data, presence of expected data, and common errors or exceptions. You can use JavaScript to write test scripts and use the `pm.test` function to write test cases.
 
+To generate randomized user data, create a script that exports the data to a JSON file. Import the data file into Postman using the Import button. Use the `pm.environment.get()` function to read the imported data in your Pre-request Script or Test script.
 
+Here's an example of how to read the imported data and use it in a request:
 
+```javascript
+let randomItemId = pm.environment.get("item_id");
+let randomQuantity = pm.environment.get("quantity");
 
+pm.variables.set("itemId", randomItemId);
+pm.variables.set("quantity", randomQuantity);
+```
 
+Then, use `{{itemId}}` and `{{quantity}}` in your request body to replace the placeholders with the actual values.
 
-
-
-
-
-
-
-
-
-
-
-
-
+By following these steps, you can test negative scenarios, generate performance reports, incorporate automated validations, and use randomized user data to simulate more realistic testing scenarios. 
 
 
